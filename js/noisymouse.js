@@ -11,6 +11,8 @@ $(document).ready(function(){
   // create the grid
   var notesSize = winWidth / notesArray.length;
   var noiseSize = winHeight / (noisesArray.length + oscillatorsArray.length);
+  // and colour grid
+  var colourSize = (winWidth + winHeight) / 256
 
   // create the new BandJS instance
   var mouseNoise = new BandJS();
@@ -39,7 +41,11 @@ $(document).ready(function(){
     }
     $( "#instrument" ).text(instrumentType);
     $( "#noise" ).text(instrumentFlavour);
-    console.log(Math.floor(mouseY / noiseSize))
+
+    // make pretty colours
+    colourVal = Math.floor((mouseX + mouseY) / colourSize);
+    $('body').css('background-color', 'rgb(' + (256- colourVal) + ',' + colourVal + ',' + colourVal + ')');
+    console.log(colourVal);
 
     // all the BandJS S that makes the noise noise
     var mn = mouseNoise.createInstrument(instrumentFlavour, instrumentType);
